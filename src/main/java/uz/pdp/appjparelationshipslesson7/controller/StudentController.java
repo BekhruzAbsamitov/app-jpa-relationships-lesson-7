@@ -22,7 +22,9 @@ public class StudentController {
     AddressRepository addressRepository;
     GroupRepository groupRepository;
 
-    public StudentController(StudentRepository studentRepository, GroupRepository groupRepository, AddressRepository addressRepository) {
+    public StudentController(StudentRepository studentRepository,
+                             GroupRepository groupRepository,
+                             AddressRepository addressRepository) {
         this.studentRepository = studentRepository;
         this.addressRepository = addressRepository;
         this.groupRepository = groupRepository;
@@ -44,6 +46,16 @@ public class StudentController {
 
         studentRepository.save(student);
         return "Saved";
+    }
+
+    @GetMapping("/byGroupId/{id}")
+    public List<Student> getStudentListByGroupId(@PathVariable Integer id) {
+        return studentRepository.findAllByGroup_Id(id);
+    }
+
+    @GetMapping("/byFacultyId/{id}")
+    public List<Student> getStudentListByFacultyId(@PathVariable Integer id) {
+        return studentRepository.findAllByGroup_Faculty_Id(id);
     }
 
     @PutMapping("/{id}")
